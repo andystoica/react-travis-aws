@@ -7,3 +7,17 @@ before_install:
 
 script:
   - docker run -e CI=true andystoica/react-travis-aws npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "eu-west-2"
+  app: "react-travis-aws"
+  env: "ReactTravisAws-env"
+  bucket_name: "elasticbeanstalk-eu-west-2-914467317987"
+  bucket_path: "react-travis-aws"
+  on:
+    branch: master
+  access_key_id:
+    secure: $AWS_ACCESS_KEY_ID
+  secret_access_key:
+    secure: $AWS_SECRET_ACCESS_KEY
